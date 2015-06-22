@@ -1,0 +1,19 @@
+{
+  "name": "ioc-dep-graph",
+  "version": "1.0.0",
+  "description": "visiualize the uioc dependencies",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Exodia/ioc-dep-graph.git"
+  },
+  "author": "exodia",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Exodia/ioc-dep-graph/issues"
+  },
+  "homepage": "https://github.com/Exodia/ioc-dep-graph#readme"
+}
