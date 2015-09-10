@@ -1,6 +1,7 @@
-void function () {
-    require(['common/ioc', '../../IoCTree'], function (ioc, IoCTree) {
-        var tree = IoCTree.getInstance(ioc);
-        tree.draw();
-    })
-}();
+define(
+    function (require) {
+        var IoCTree = require('ioc-dep-graph/IoCTree');
+        var ioc = require('common/ioc');
+        return IoCTree.getInstance(ioc);
+    }
+);

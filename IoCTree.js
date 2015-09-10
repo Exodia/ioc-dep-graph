@@ -6,20 +6,20 @@ define(
             this.children = null;
             this.nodes = [];
             this.links = [];
-            this.initNodes();
-            this.initLinks();
-        }
-
-        IoCTree.prototype.initNodes = function () {
-            var components = this.ioc.getComponentConfig();
-            this.nodes = Object.keys(components).map(function (node) {
-                return {
-                    id: node
+            var me = this;
+            window.addEventListener('message', function (event) {
+                if (me.drawWindow === event.source && event.data.type === 'windowReady') {
+                    me.draw();
                 }
             });
-        };
+        }
 
-        IoCTree.prototype.initLinks = function () {
+        IoCTree.prototype.updateData = function () {
+            var components = this.ioc.getComponentConfig();
+            this.nodes = Object.keys(components).map(function (node) {
+                return {id: node};
+            });
+
             var process = function (type, source, deps) {
                 deps.forEach(function (dep) {
                     this.links.push({
@@ -28,7 +28,6 @@ define(
                         relation: type
                     })
                 }, this);
-
             };
 
             this.nodes.forEach(function (node, index) {
@@ -36,21 +35,16 @@ define(
                 process.call(this, 'arg', index, config.argDeps || []);
                 process.call(this, 'setter', index, config.setterDeps || []);
                 process.call(this, 'property', index, config.propDeps || []);
-                process.call(this, 'import', index, config.anonyDeps || []);
+                // TODO: import 配置需要再考虑下怎么展示
+                //process.call(this, 'import', index, config.anonyDeps || []);
             }, this);
+
         };
 
         IoCTree.prototype.draw = function () {
-            console.log(this);
-            var me = this;
-            if (!this.drawWindow) {
-                this.drawWindow = window.open('../draw.html');
-                this.drawWindow.onload = function () {
-                    me.drawWindow.postMessage({
-                        nodes: me.nodes,
-                        links: me.links
-                    }, '*');
-                };
+            this.updateData();
+            if (!this.drawWindow || this.drawWindow.closed) {
+                this.drawWindow = window.open(require.toUrl('./draw/draw.html'));
             }
             else {
                 this.drawWindow.postMessage({
@@ -58,6 +52,7 @@ define(
                     links: this.links
                 }, '*');
             }
+            this.drawWindow.focus();
         };
 
         IoCTree.getInstance = function (ioc) {
