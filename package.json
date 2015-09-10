@@ -1,16 +1,19 @@
 {
   "name": "ioc-dep-graph",
   "version": "0.0.1",
-  "description": "visiualize the uioc dependencies",
+  "description": "uioc 依赖可视化视图工具",
   "main": "main.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Exodia/ioc-dep-graph.git"
   },
-  "author": "exodia",
+  "maintainers": [
+    {
+      "name": "exodia",
+      "web": "https://github.com/Exodia",
+      "mail": "d_xinxin@163.com"
+    }
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Exodia/ioc-dep-graph/issues"
